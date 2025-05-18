@@ -28,8 +28,8 @@ urlpatterns = [
     path('Cources/', include('CourcePanal.urls')),
     path('Web/',include('WebMaker.urls')),
     path('products/',include('store.urls')),
-    path('blog/',include('blog.urls'), name='blog'),
-    path('Community/',include('network.urls'), name='network'),
+    path('blog/',include('blog.urls')),
+    path('Community/',include('network.urls')),
 
 ]
 if settings.DEBUG:
