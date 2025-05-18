@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 # Create your views here.
 
+# Login
 def login_view(request):
     if request.method == "POST":
 
