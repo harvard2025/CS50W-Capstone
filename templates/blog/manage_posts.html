@@ -262,13 +262,21 @@
             min-width: 600px;
         }
     }
+
+    @media (max-width: 687px) {
+        .p1{
+            font-weight: 100;
+            font-size: xx-small;
+            width: 80%;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block body %}
 <div class="manage-header">
     <h1>Manage Your Posts</h1>
-    <p>Create, edit, and delete your blog posts from this dashboard.</p>
+    <p class="p1">Create, edit, and delete your blog posts from this dashboard.</p>
 </div>
 
 <div class="manage-container">

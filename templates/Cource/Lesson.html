@@ -33,6 +33,27 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+    }
+    .btn{
+        background: linear-gradient(rgb(0, 0, 0), rgb(0, 22, 78));
+        color: aliceblue;
+        border: 1px solid white ;
+        cursor: pointer;
+        
+    }
+    .btn:hover{
+        scale: 1.01;
+        transform: translateY(-1px);
+    }
+    .btn1{
+
+        border-radius: 25px 0 0 25px;
+        
+    }
+    .btn2{
+        border-radius: 0 25px 25px 0;
+        
     }
 </style>
 
@@ -73,12 +94,12 @@
 <div class="but">
     <form action="{% url 'oneCource' Lesson.Cource.id %}">
 
-        <input type="submit" value="Back">
+        <input type="submit" class="btn btn1" value="Back">
     </form>
     {% if isExam == True%}
         <form action="{% url 'Exam' Lesson.id %}">
-            <input type="hidden" name="Lesson_id" value="{{Lesson.id}}">
-            <input type="submit" value="Next to Exam">
+            <input type="hidden" name="Lesson_id"  value="{{Lesson.id}}">
+            <input type="submit" class="btn btn2" value="Next to Exam">
         </form>
     {% endif %}
 

@@ -391,18 +391,30 @@
         background: #e5e7eb;
         color: #4b5563;
     }
+    @media (max-width: 687px) {
+        .p1{
+            font-weight: 100;
+            font-size: xx-small;
+            width: 80%;
+        }
+        .editor-toolbar{
+            display: none;
+        }
+        
+    }
+
 </style>
 {% endblock %}
 
 {% block body %}
 <div class="form-header">
     <h1>{{ title }}</h1>
-    <p>{% if form.instance.id %}Edit your existing blog post{% else %}Share your knowledge with the world by creating a new blog post{% endif %}</p>
+    <p class="p1">{% if form.instance.id %}Edit your existing blog post{% else %}Share your knowledge with the world by creating a new blog post{% endif %}</p>
 </div>
 
 <div class="form-container">
     <div class="form-card">
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" class="F1" enctype="multipart/form-data">
             {% csrf_token %}
             
             {% if form.non_field_errors %}

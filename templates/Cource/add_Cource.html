@@ -85,6 +85,11 @@
         transform: translateY(-3px) scale(1.02);
         box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
     }
+    @media (max-width: 600px) {
+        form{
+            width: 80%;
+        }
+    }
 </style>
 
 <form action="{% url 'Add_Cource' %}" method="post" enctype="multipart/form-data">

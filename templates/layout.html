@@ -8,14 +8,130 @@
     <link rel="icon" href="{% static 'Prro Coders.jpg' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     
-
     {% block head %}{% endblock %}
 </head>
 <body>
-
     <style>
-        body{
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        /* Burger Menu Styles */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            color: white;
+        }
+
+        .burger-menu:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .burger-line {
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .burger-menu.active .burger-line:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .burger-menu.active .burger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .burger-menu.active .burger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-top: 1px solid #ffffff;
+            z-index: 1000;
+        }
+
+        .mobile-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .mobile-nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mobile-nav-item {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .mobile-nav-item:last-child {
+            border-bottom: none;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            padding: 15px 20px;
+            transition: background-color 0.2s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* Position navbar relatively for mobile menu */
+        .navbar1 {
+            position: fixed;
+        }
+
+        /* Responsive Media Queries */
+        @media (max-width: 1100px) {
+            .nav1 {
+                display: none;
+            }
+            
+            .burger-menu {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                width: 80px !important;
+            }
+            
+            .mobile-nav-link {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
         }
     </style>
 
@@ -23,7 +139,7 @@
         <!-- Logo -->
         <img src="{% static 'Prro Coders.jpg' %}" alt="PrroCoders" class="logo" width="100" >
 
-        <!-- nav -->
+        <!-- Desktop Navigation -->
         <ul class="nav1">
             <li class="nav-item1">
                 <a class="nav-link1" href="{% url 'Home:index' %}">Home</a>
@@ -31,9 +147,6 @@
             <li class="nav-item1">
                 <a class="nav-link1" href="{% url 'Cource' %}">Cources</a>
             </li>
-            <!-- <li class="nav-item1">
-                <a class="nav-link1" href="">Certificates</a>
-            </li> -->
             <li class="nav-item1">
                 <a class="nav-link1" href="{% url 'WebMaker' %}">Make Your Website</a>
             </li>
@@ -43,14 +156,11 @@
             <li class="nav-item1">
                 <a class="nav-link1" href="{% url 'blog:post_list' %}">Blog</a>
             </li>
-
             <li class="nav-item1">
                 <a class="nav-link1" href="{% url 'store:store' 1 %}">Products</a>
             </li>
 
-
             {% if user.is_authenticated and not user.is_superuser and not user.is_staff %}
-
             <li class="nav-item1">
                 <a href="" class="nav-link1">{{ user.username }}</a>
             </li>
@@ -67,12 +177,10 @@
                 <li class="nav-item1">
                     <a class="nav-link1" href="{% url 'logout' %}">Log Out</a>
                 </li>
-
             {% elif user.is_staff and not user.is_superuser %}
                 <li class="nav-item1">
                     <a href="{% url 'adminPanal' %}" class="nav-link1">Admin</a>
                 </li>        
-
                 <li class="nav-item1">
                     <a href="" class="nav-link1">{{ user.username }}</a>
                 </li>
@@ -88,17 +196,117 @@
                 </li>
             {% endif %}
         </ul>
+
+        <!-- Burger Menu Button -->
+        <div class="burger-menu" id="burgerMenu">
+            <div class="burger-line" style="color: white;"></div>
+            <div class="burger-line" style="color: white;"></div>
+            <div class="burger-line" style="color: white;"></div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav">
+                <li class="mobile-nav-item">
+                    <a class="mobile-nav-link" href="{% url 'Home:index' %}">Home</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a class="mobile-nav-link" href="{% url 'Cource' %}">Cources</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a class="mobile-nav-link" href="{% url 'WebMaker' %}">Make Your Website</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a class="mobile-nav-link" href="https://prrohost.pythonanywhere.com">Prtfolio</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a class="mobile-nav-link" href="{% url 'blog:post_list' %}">Blog</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a class="mobile-nav-link" href="{% url 'store:store' 1 %}">Products</a>
+                </li>
+
+                {% if user.is_authenticated and not user.is_superuser and not user.is_staff %}
+                <li class="mobile-nav-item">
+                    <a href="" class="mobile-nav-link">{{ user.username }}</a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a class="mobile-nav-link" href="{% url 'logout' %}">Log Out</a>
+                </li>
+                {% elif user.is_superuser %}
+                    <li class="mobile-nav-item">
+                        <a href="{% url 'adminPanal' %}" class="mobile-nav-link">Admin</a>
+                    </li>    
+                    <li class="mobile-nav-item">
+                        <a href="" class="mobile-nav-link">{{ user.username }}</a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                {% elif user.is_staff and not user.is_superuser %}
+                    <li class="mobile-nav-item">
+                        <a href="{% url 'adminPanal' %}" class="mobile-nav-link">Admin</a>
+                    </li>        
+                    <li class="mobile-nav-item">
+                        <a href="" class="mobile-nav-link">{{ user.username }}</a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" href="{% url 'logout' %}">Log Out</a>
+                    </li>
+                {% else %}
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" href="{% url 'Login' %}">Log In</a>
+                    </li>
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" href="{% url 'register' %}">Register</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
     </div>
-
-
-
-
-
-
 
     <div class="container container-content">
         {% block body %}{% endblock body %}
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const burgerMenu = document.getElementById('burgerMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            // Toggle mobile menu
+            burgerMenu.addEventListener('click', function(e) {
+                e.stopPropagation();
+                burgerMenu.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking on mobile links
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            mobileLinks.forEach(function(link) {
+                link.addEventListener('click', function() {
+                    burgerMenu.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!burgerMenu.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    burgerMenu.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+
+            // Close menu on window resize to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    burgerMenu.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

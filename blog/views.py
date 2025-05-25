@@ -62,13 +62,29 @@ class PostDetailView(DetailView):
         return post
     
     def get_context_data(self, **kwargs):
-        # Rest of the method remains the same
         context = super().get_context_data(**kwargs)
         context['comments'] = self.object.comments.filter(approved=True)
         context['comment_form'] = CommentForm()
         context['categories'] = Category.objects.all()
         return context
-
+    
+    def post(self, request, *args, **kwargs):
+        """Handle comment form submission"""
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.save()
+            messages.success(request, "Your comment has been submitted and is awaiting approval.")
+            return redirect(self.object.get_absolute_url())
+        else:
+            # If form is invalid, redisplay the page with errors
+            context = self.get_context_data()
+            context['comment_form'] = form
+            return self.render_to_response(context)
+        
 class CategoryPostListView(ListView):
     model = Post
     template_name = 'blog/category_posts.html'

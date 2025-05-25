@@ -5,6 +5,12 @@
 <link rel="stylesheet" href="{% static 'Cource/one.css' %}">
 
 <style>
+    .all1{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
     form{
         display: flex;
         flex-direction: column;
@@ -27,14 +33,30 @@
     .sub{
         margin-top: 20px;
     }
+    @media (max-width: 400px){
+        .label{
+            font-size: 20px;
+            
+        }
+        .cer{
+            width: 80%;
+        }
+        *{
+            
+        }
+    }
 </style>
 
-<form action="{% url 'make_sub' Cource.id %}" method="post">
-    {% csrf_token %}
-    <label for="Certificate_Name" class="label">Enter Your Certeficate Name</label>
-    <input type="text" class="cer name" name="Certificate_Name">
-    <input type="submit" class='sub' value="Subscribe">
-</form>
+<div class="all1">
+    <form action="{% url 'make_sub' Cource.id %}" method="post">
+        {% csrf_token %}
+        <label for="Certificate_Name" class="label">Enter Your Certeficate Name</label>
+        <input type="text" class="cer name" name="Certificate_Name">
+        <input type="submit" class='sub' value="Subscribe">
+    </form>
+</div>
+
+
 
 
 

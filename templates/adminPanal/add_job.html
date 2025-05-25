@@ -6,10 +6,7 @@
 
 
 <style>
-    body{
 
-
-    }
     .a{
         display: flex;
         justify-content: center;
@@ -30,8 +27,7 @@
         justify-content: center;
         align-items: center;
         box-shadow: 3px 0 7px rgba(0, 0, 0, 0.461);
-        
-
+    
     }
     .form{
         display: flex;
@@ -121,16 +117,32 @@
         transform: translateY(0);
         }
     }
+    @media (max-width: 768px) {
+        .form{
+            flex-direction: column;
+
+            
+        }
+        form > input {
+            width: 50%;
+        }
+        .job{
+            width: 90%;
+        }
+
+    }
 </style>
 
-
-<div class="add">
-    <form class="form" method="post" action="{% url 'addJob' %}">
-        {% csrf_token %}
-        <input type="text" name="job_name" class="job" placeholder="Add new Job...">
-        <input type="submit" value="Add" class="btn">
-    </form>
+<div class="all1">
+    <div class="add">
+        <form class="form" method="post" action="{% url 'addJob' %}">
+            {% csrf_token %}
+            <input type="text" name="job_name" class="job" placeholder="Add new Job...">
+            <input type="submit" value="Add" class="btn">
+        </form>
+    </div>
 </div>
+
 
 
 
