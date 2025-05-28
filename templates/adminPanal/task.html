@@ -324,36 +324,55 @@
         function detectCountry(number) {
             number = number.replace(/\D/g, ''); // إزالة جميع الأحرف غير الرقمية
             
-            const countries = [
-                { // السعودية - الأولوية القصوى للتمييز من الإمارات
-                    code: 'SA', 
-                    name: 'Saudi Arabia', 
-                    prefixes: ['966'],
-                    localPrefixes: ['05', '5','+966'],
-                    minLength: 9,
-                    maxLength: 9,
-                    countryCode: '+966'
-                },
-                { // الإمارات
-                    code: 'AE', 
-                    name: 'UAE', 
-                    prefixes: ['971'],
-                    localPrefixes: ['05', '5','+971'],
-                    minLength: 9,
-                    maxLength: 9,
-                    countryCode: '+971'
-                },
-                { // مصر
-                    code: 'EG', 
-                    name: 'Egypt', 
-                    prefixes: ['20'],
-                    localPrefixes: ['01', '10', '11', '12', '15','+20'],
-                    minLength: 10,
-                    maxLength: 10,
-                    countryCode: '+20'
-                },
-                // ... باقي الدول
-            ];
+        const countries = [
+            { // السعودية
+                code: 'SA', 
+                name: 'Saudi Arabia', 
+                prefixes: ['966'],
+                localPrefixes: ['05', '5','+966'],
+                minLength: 9,
+                maxLength: 9,
+                countryCode: '+966'
+            },
+            { // الإمارات
+                code: 'AE', 
+                name: 'UAE', 
+                prefixes: ['971'],
+                localPrefixes: ['05', '5','+971'],
+                minLength: 9,
+                maxLength: 9,
+                countryCode: '+971'
+            },
+            { // مصر
+                code: 'EG', 
+                name: 'Egypt', 
+                prefixes: ['20'],
+                localPrefixes: ['01', '10', '11', '12', '15','+20'],
+                minLength: 10,
+                maxLength: 10,
+                countryCode: '+20'
+            },
+            { // أمريكا
+                code: 'US', 
+                name: 'United States', 
+                prefixes: ['1'],
+                localPrefixes: ['+1'],
+                minLength: 10,
+                maxLength: 10,
+                countryCode: '+1'
+            },
+            { // ألمانيا
+                code: 'DE', 
+                name: 'Germany', 
+                prefixes: ['49'],
+                localPrefixes: ['01', '1', '+49'],
+                minLength: 10,
+                maxLength: 11,
+                countryCode: '+49'
+            },
+            // ... باقي الدول
+        ];
+
 
             let bestMatch = { code: 'UNKNOWN', name: 'Unknown', countryCode: '' };
             let maxScore = 0;
